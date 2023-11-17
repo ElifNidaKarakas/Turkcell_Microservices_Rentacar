@@ -9,7 +9,7 @@ services:
   keycloak:
     image: quay.io/keycloak/keycloak
     ports:
-      - 8181:8181
+      - 8080:8080
     mem_limit: 700m
     environment:
       KEYCLOAK_ADMIN: admin
@@ -19,7 +19,7 @@ services:
   api-gateway:
     image: halefbudanur/api-gateway
     ports:
-      - 8080:8080
+      - 8181:8181
     mem_limit: 700m
   rental-service:
     image: halefbudanur/rental-service
@@ -39,8 +39,8 @@ services:
     container_name: postgres_container
     image: postgres:latest
     environment:
-      POSTGRES_USER: ${POSTGRES_USER:-postgres}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345
       PGDATA: /data/postgres
     volumes:
       - postgres:/data/postgres
