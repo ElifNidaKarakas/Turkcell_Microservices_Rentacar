@@ -1,8 +1,8 @@
 package com.turkcell.rentalservice.entities;
 
-
 import jakarta.persistence.*;
 import lombok.*;
+
 @Getter
 @Setter
 @Entity
@@ -10,11 +10,14 @@ import lombok.*;
 @AllArgsConstructor
 @Table(name = "rentals")
 public class Rental {
+
     @Id
     @Column(name = "id")
     private String id;
+
     @Column(name = "car_id")
     private String carId;
+
     @Column(name = "car_status")
     private String carStatus;
 }

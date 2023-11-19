@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class CarResponseDto {
+
     private Long id;
     private String name;
 }

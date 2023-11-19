@@ -13,5 +13,4 @@ COPY  target/rental-service-0.0.1-SNAPSHOT.jar rental-service-0.0.1-SNAPSHOT.jar
 #java -jar orderservice-0.0.1-SNAPSHOT.jar
 ENTRYPOINT ["java", "-jar", "rental-service-0.0.1-SNAPSHOT.jar"]
 
-
 # Docker Compose

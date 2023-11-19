@@ -12,11 +12,10 @@ public class RentalManager implements RentalService {
 
     private final RentalRepository rentalRepository;
 
-
     @Override
     public String getCarStatus(String carId) {
         Rental rental = rentalRepository.findByCarId(carId);
-        System.out.println("durum:"+rental.getCarStatus());
+        System.out.println("durum:" + rental.getCarStatus());
         return rental.getCarStatus();
     }
 }
