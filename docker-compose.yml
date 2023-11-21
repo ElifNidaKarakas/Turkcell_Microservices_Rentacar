@@ -21,6 +21,13 @@ services:
     ports:
       - 8181:8181
     mem_limit: 700m
+  customer-service:
+    image: fuathuriyetoglu/customer-service
+    ports:
+      - 8083:8083
+    mem_limit: 700m
+    depends_on:
+      - postgres
   rental-service:
     image: halefbudanur/rental-service
     ports:
