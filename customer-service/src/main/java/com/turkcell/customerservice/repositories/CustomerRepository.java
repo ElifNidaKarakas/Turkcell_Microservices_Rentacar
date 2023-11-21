@@ -3,7 +3,9 @@ package com.turkcell.customerservice.repositories;
 import com.turkcell.customerservice.entities.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CustomerRepository extends JpaRepository<Customer, Integer> {
+import java.util.Optional;
 
+public interface CustomerRepository extends JpaRepository<Customer, Integer> {
+    Optional<Customer> findByName(String name);
 
 }
