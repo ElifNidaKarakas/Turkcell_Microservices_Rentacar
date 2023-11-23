@@ -12,6 +12,7 @@
         <module name="discovery-server" />
         <module name="car-service" />
         <module name="customer-service" />
+        <module name="notificationservice" />
       </profile>
     </annotationProcessing>
   </component>
@@ -21,6 +22,7 @@
       <module name="car-service" options="-parameters" />
       <module name="customer-service" options="-parameters" />
       <module name="discovery-server" options="-parameters" />
+      <module name="notificationservice" options="-parameters" />
       <module name="rental-service" options="-parameters" />
     </option>
   </component>

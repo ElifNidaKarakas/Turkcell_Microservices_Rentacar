@@ -18,4 +18,15 @@ public class RentalManager implements RentalService {
         System.out.println("durum:" + rental.getCarStatus());
         return rental.getCarStatus();
     }
+
+    @Override
+    public String getRentACar(String carId) {
+        Rental rental = rentalRepository.findByCarId(carId);
+        if(rental.getCarStatus().equals("degil")){
+            return "İstenilen araba kiralanmaya uygun değildir.";
+        }
+        else{
+            return "Araç kiralama işlemi gerçekleştirildi.";
+        }
+    }
 }
