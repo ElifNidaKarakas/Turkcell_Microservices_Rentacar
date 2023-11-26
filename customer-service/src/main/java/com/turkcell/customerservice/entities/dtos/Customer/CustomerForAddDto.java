@@ -1,6 +1,7 @@
 package com.turkcell.customerservice.entities.dtos.Customer;
 
 
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -25,5 +26,8 @@ public class CustomerForAddDto {
 
     @NotBlank(message = "Boş bırakılamaz")
     private String email;
+
+    @NotBlank(message = "Boş bırakılamaz")
+    private int remainder;
 
 }
