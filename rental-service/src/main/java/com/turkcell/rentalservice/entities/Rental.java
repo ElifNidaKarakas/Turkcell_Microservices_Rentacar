@@ -12,9 +12,6 @@ import lombok.*;
 public class Rental {
 
     @Id
-    @Column(name = "id")
-    private String id;
-
     @Column(name = "car_id")
     private String carId;
 

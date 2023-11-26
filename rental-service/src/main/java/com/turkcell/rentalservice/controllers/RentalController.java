@@ -1,13 +1,12 @@
 package com.turkcell.rentalservice.controllers;
 
+import com.google.common.net.HttpHeaders;
 import com.turkcell.rentalservice.business.abstracts.RentalService;
 import com.turkcell.rentalservice.dto.responses.CarResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
@@ -24,6 +23,13 @@ public class RentalController {
     public String getCarStatus(@RequestParam String carId,
                                @RequestParam String name) {
         return rentalService.getCarStatus(carId);
+    }
+
+    @PostMapping("set-car-status")
+    public void setCarStatus(@RequestParam String carId,
+                             @RequestParam String message){
+
+        rentalService.setCarStatusDescription(carId,message);
     }
 
     @GetMapping("rent-a-car")
@@ -50,7 +56,7 @@ public class RentalController {
                 .bodyToMono(CarResponseDto.class)
                 .block();
 
-        kafkaTemplate.send("notificationTopic","Mail üzerinden araç kiralama bilgileri gönderildi.");
+        //kafkaTemplate.send("notificationTopic","Mail üzerinden araç kiralama bilgileri gönderildi.");
         return rentalService.getRentACar(carInfo,customerReminder);
     }
 

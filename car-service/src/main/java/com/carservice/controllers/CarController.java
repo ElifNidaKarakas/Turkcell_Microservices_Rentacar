@@ -89,8 +89,8 @@ public class CarController {
        return car.get().getCarStatus();
     }
 
-    @PutMapping("/cars/{id}")
-    public void updateCar(@PathVariable String id, @RequestBody Car car) {
+    @PutMapping("carUpdate")
+    public void updateCar(@RequestParam String id, @RequestBody Car car) {
         carService.updateCar(id, car);
     }
 

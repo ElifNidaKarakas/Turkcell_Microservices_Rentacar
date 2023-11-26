@@ -20,7 +20,7 @@ public class Car {
     private String color;
     private String date;
     private double dailyPrice;
-    private Boolean carStatus;// TODO: Buradan arabanın durumu (sadece true veya false) girilecek ama açıklaması rentalService de olacak.
+    private Boolean carStatus;
     //private String image;
 
 }
