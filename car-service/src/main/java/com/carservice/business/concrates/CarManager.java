@@ -2,6 +2,8 @@ package com.carservice.business.concrates;
 
 import com.carservice.business.abstracts.CarService;
 import com.carservice.entities.Car;
+import com.carservice.entities.CarImages;
+import com.carservice.repositories.CarImagesRepository;
 import com.carservice.repositories.CarRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -16,6 +18,7 @@ public class CarManager implements CarService {
 
 
     private final CarRepository carRepository;
+    private final CarImagesRepository carImagesRepository;
     private final ModelMapper modelMapper;
     //  private final MessageSource messageSource;
 
@@ -32,6 +35,18 @@ public class CarManager implements CarService {
     @Override
     public Car add(Car car) {
         return carRepository.save(car);
+    }
+
+    @Override
+    public CarImages addCarImages(List<CarImages> carImages) {
+        for (CarImages item : carImages) {
+            CarImages newCarImages = new CarImages();
+            newCarImages.setId(item.getId());
+            newCarImages.setCarId(item.getCarId());
+            newCarImages.setCarImage(item.getCarImage());
+            carImagesRepository.save(newCarImages);
+        }
+        return null;
     }
 
     @Override

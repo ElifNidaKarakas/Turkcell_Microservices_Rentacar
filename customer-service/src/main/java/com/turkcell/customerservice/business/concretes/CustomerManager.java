@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class CustomerManager implements CustomerService {
@@ -18,5 +20,10 @@ public class CustomerManager implements CustomerService {
     public void addCustomer(CustomerForAddDto request) {
         Customer customerFromAutoMapping = modelMapper.map(request, Customer.class);
         customerRepository.save(customerFromAutoMapping);
+    }
+
+    @Override
+    public Optional<Customer> getById(int id) {
+        return customerRepository.findById(id);
     }
 }

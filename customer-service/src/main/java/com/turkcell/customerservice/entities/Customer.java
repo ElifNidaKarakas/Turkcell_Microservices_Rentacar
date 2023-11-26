@@ -2,8 +2,6 @@ package com.turkcell.customerservice.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
@@ -35,4 +33,7 @@ public class Customer {
 
     @Column(name = "email")
     private String email;
+
+    @Column(name = "remainder")
+    private int remainder;
 }

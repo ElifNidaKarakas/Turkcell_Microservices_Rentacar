@@ -1,6 +1,7 @@
 package com.turkcell.rentalservice.business.concretes;
 
 import com.turkcell.rentalservice.business.abstracts.RentalService;
+import com.turkcell.rentalservice.dto.responses.CarResponseDto;
 import com.turkcell.rentalservice.entities.Rental;
 import com.turkcell.rentalservice.repositories.RentalRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,13 +21,14 @@ public class RentalManager implements RentalService {
     }
 
     @Override
-    public String getRentACar(String carId) {
-        Rental rental = rentalRepository.findByCarId(carId);
-        if(rental.getCarStatus().equals("degil")){
-            return "İstenilen araba kiralanmaya uygun değildir.";
+    public String getRentACar(CarResponseDto carInfo, Integer customerReminder) {
+        //Rental rental = rentalRepository.findByCarId(carInfo.getId());
+        //rental.getCarStatus().equals("degil"
+        if(carInfo.getCarStatus() && customerReminder > carInfo.getDailyPrice()){
+            return "Araç kiralama işlemi gerçekleştirildi.";
         }
         else{
-            return "Araç kiralama işlemi gerçekleştirildi.";
+            return "İstenilen araba kiralanmaya uygun değildir.";
         }
     }
 }

@@ -1,17 +1,17 @@
 package com.turkcell.customerservice.controllers;
 
 import com.turkcell.customerservice.business.abstracts.CustomerService;
+import com.turkcell.customerservice.entities.Customer;
 import com.turkcell.customerservice.entities.dtos.Customer.CustomerForAddDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 
+import java.util.Optional;
+
 @RestController
-@RequestMapping("customers")
+@RequestMapping("api/v1/customers")
 @RequiredArgsConstructor
 public class CustomerController {
     private final CustomerService customerServices;
@@ -23,5 +23,11 @@ public class CustomerController {
 
         //return new ResponseEntity(product.getProductName() + " adlı ürün eklendi.", HttpStatus.CREATED);
 
+    }
+
+    @GetMapping("getRemainder")
+    public Integer getRemainder(@RequestParam int customerId) {
+        Optional<Customer> customer = customerServices.getById(customerId);
+        return customer.get().getRemainder();
     }
 }

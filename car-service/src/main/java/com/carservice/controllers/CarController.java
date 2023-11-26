@@ -1,14 +1,18 @@
 package com.carservice.controllers;
 
 import com.carservice.business.abstracts.CarService;
+import com.carservice.dto.requests.CarImagesDto;
 import com.carservice.dto.requests.CarInfoDto;
 import com.carservice.entities.Car;
+import com.carservice.entities.CarImages;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +22,7 @@ import java.util.Optional;
 public class CarController {
     private final CarService carService;
     private final WebClient.Builder webClientBuilder;
+    private final ImageController imageController;
 
     @GetMapping
     public List<Car> getAllCars() {
@@ -37,9 +42,51 @@ public class CarController {
         return ResponseEntity.status(HttpStatus.OK).body(addCar);
     }
 
-    @GetMapping("/{id}")
-    public Optional<Car> getByCarId(@PathVariable String id) {
+    /*@PostMapping("/AddCarImages")
+    public String AddCarImages(@RequestBody List<CarImages> carImages) {//ResponseEntity<CarImages>
+        carService.addCarImages(carImages);//CarImages addCar = carService.add(car);
+        return ("Araba görsel/görselleri eklendi.");//return ResponseEntity.status(HttpStatus.OK).body(addCar);//Url ler döndürülebilir.
+    }*/
+
+    /*@PostMapping("/AddCarImages")
+    public String AddCarImages(@RequestBody String carId,
+                               @RequestBody List<String> base64Data)  throws IOException {
+
+        List<CarImages> carImagesList = new ArrayList<>();
+        for(String item:base64Data) {
+            CarImages carImages = new CarImages();
+            carImages.setCarId(carId);
+            carImages.setCarImage(imageController.uploadImage(item));
+            carImagesList.add(carImages);
+        }
+        carService.addCarImages(carImagesList);
+        return ("Araba görsel/görselleri eklendi.");
+    }*/
+
+    @PostMapping("/AddCarImages")
+    public String AddCarImages(@RequestBody List<CarImagesDto> carImagesDtos)  throws IOException {
+
+        List<CarImages> carImagesList = new ArrayList<>();
+        for(CarImagesDto item:carImagesDtos) {
+            CarImages carImages = new CarImages();
+            carImages.setId(item.getId());
+            carImages.setCarId(item.getCarId());
+            carImages.setCarImage(imageController.uploadImage(item.getBase64Data().replace(" ","")));
+            carImagesList.add(carImages);
+        }
+        carService.addCarImages(carImagesList);
+        return ("Araba görsel/görselleri eklendi.");
+    }
+
+    @GetMapping("getByCarId")
+    public Optional<Car> getByCarId(@RequestParam String id) {
         return carService.getById(id);
+    }
+
+    @GetMapping("carStatus")
+    public Boolean getByCarStatus(@RequestParam String id) {
+       Optional<Car> car = carService.getById(id);
+       return car.get().getCarStatus();
     }
 
     @PutMapping("/cars/{id}")
