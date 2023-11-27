@@ -29,7 +29,7 @@ public class RentalController {
     public void setCarStatus(@RequestParam String carId,
                              @RequestParam String message){
 
-        rentalService.setCarStatusDescription(carId,message);
+        rentalService.addCarStatusDescription(carId,message);
     }
 
     @GetMapping("rent-a-car")
@@ -60,4 +60,20 @@ public class RentalController {
         return rentalService.getRentACar(carInfo,customerReminder);
     }
 
+    @GetMapping("delivery-a-car")
+    public String deliveryACar(@RequestParam String carId) {
+
+        CarResponseDto carInfo = webClientBuilder.build()
+                .get()
+                .uri("http://car-service/api/v1/cars/getByCarId",
+                        (uriBuilder) -> uriBuilder
+                                .queryParam("id",carId)
+                                .build())
+                .retrieve()
+                .bodyToMono(CarResponseDto.class)
+                .block();
+
+        //kafkaTemplate.send("notificationTopic","Mail üzerinden araç kiralama bilgileri gönderildi.");
+        return rentalService.getDeliveryACar(carInfo);
+    }
 }

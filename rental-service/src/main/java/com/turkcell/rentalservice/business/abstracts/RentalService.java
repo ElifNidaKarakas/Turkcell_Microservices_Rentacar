@@ -7,7 +7,8 @@ public interface RentalService {
     String getCarStatus(String carId);
 
     String getRentACar(CarResponseDto carInfo, Integer customerReminder);
+    String getDeliveryACar(CarResponseDto carInfo);
 
-    void setCarStatusDescription(String carId, String message);
+    void deleteCarStatusDescription(String carId);
     void addCarStatusDescription(String carId, String message);
 }

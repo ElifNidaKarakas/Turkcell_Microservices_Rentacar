@@ -34,7 +34,7 @@ public class RentalManager implements RentalService {
         if(carInfo.getCarStatus() && customerReminder > carInfo.getDailyPrice()){
             carStatusUpdate(carInfo);
             addCarStatusDescription(carInfo.getId(),"Araç kirada.");
-            return "Araç kiralama işlemi gerçekleştirildi."; // ToDo: Kafka düzeldiğinde güncellenecek.
+            return "Araç kiralama işlemi gerçekleştirildi."; // ToDo: Kafka düzeldiğinde güncellenecek. Aracı kimin kiraladığı not tutulmuyor Rentaldb'ye customer id ekle.
         }
         else{
             Rental rental = rentalRepository.findByCarId(carInfo.getId());
@@ -43,10 +43,21 @@ public class RentalManager implements RentalService {
     }
 
     @Override
-    public void setCarStatusDescription(String carId, String message) { // ToDo: Admin car-status girişi düzenlenecek. Araç kiradan dönme işlemi yazılacak...
-       Rental rental =  rentalRepository.findByCarId(carId);
-       rental.setCarStatus(message);
-       rentalRepository.save(rental);
+    public String getDeliveryACar(CarResponseDto carInfo) {
+        Rental rental = rentalRepository.findByCarId(carInfo.getId());
+
+        if(!carInfo.getCarStatus() && rental.getCarStatus().equals("Araç kirada.")){
+            carStatusUpdate(carInfo);
+            deleteCarStatusDescription(carInfo.getId());
+            return "Araç teslim alındı."; // ToDo: Kafka düzeldiğinde güncellenecek.
+        }
+        else{
+            return "Araç kirada değil.";
+        }    }
+
+    @Override
+    public void deleteCarStatusDescription(String carId) { // ToDo: Admin car-status girişi düzenlenecek.
+       rentalRepository.deleteById(carId);
     }
 
     @Override
