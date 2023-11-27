@@ -16,7 +16,7 @@ import reactor.core.publisher.Mono;
 public class RentalController {
 
     private final RentalService rentalService;
-    private final KafkaTemplate<String,String> kafkaTemplate;
+    //private final KafkaTemplate<String,String> kafkaTemplate;
     private final WebClient.Builder webClientBuilder;
 
     @GetMapping("car-status")
@@ -73,7 +73,8 @@ public class RentalController {
                 .bodyToMono(CarResponseDto.class)
                 .block();
 
-        //kafkaTemplate.send("notificationTopic","Mail üzerinden araç kiralama bilgileri gönderildi.");
+
+        //kafkaTemplate.send("notificationTopic",rentalService.getDeliveryACar(carInfo));
         return rentalService.getDeliveryACar(carInfo);
     }
 }

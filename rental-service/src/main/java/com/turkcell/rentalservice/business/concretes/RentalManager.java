@@ -8,6 +8,7 @@ import com.turkcell.rentalservice.repositories.RentalRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.MediaType;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -20,6 +21,7 @@ public class RentalManager implements RentalService {
     private final RentalRepository rentalRepository;
     private final WebClient.Builder webClientBuilder;
     private final ModelMapper modelMapper;
+    private final KafkaTemplate<String,String> kafkaTemplate;
 
     @Override
     public String getCarStatus(String carId) {
@@ -34,10 +36,12 @@ public class RentalManager implements RentalService {
         if(carInfo.getCarStatus() && customerReminder > carInfo.getDailyPrice()){
             carStatusUpdate(carInfo);
             addCarStatusDescription(carInfo.getId(),"Araç kirada.");
-            return "Araç kiralama işlemi gerçekleştirildi."; // ToDo: Kafka düzeldiğinde güncellenecek. Aracı kimin kiraladığı not tutulmuyor Rentaldb'ye customer id ekle.
+            kafkaTemplate.send("notificationTopic","Mail üzerinden araç kiralama bilgileri gönderildi.");
+            return "Araç kiralama işlemi gerçekleştirildi."; // ToDo: Aracı kimin kiraladığı not tutulmuyor Rentaldb'ye customer id ekle.
         }
         else{
             Rental rental = rentalRepository.findByCarId(carInfo.getId());
+            kafkaTemplate.send("notificationTopic",rental.getCarStatus());
             return rental.getCarStatus();
         }
     }
@@ -49,9 +53,11 @@ public class RentalManager implements RentalService {
         if(!carInfo.getCarStatus() && rental.getCarStatus().equals("Araç kirada.")){
             carStatusUpdate(carInfo);
             deleteCarStatusDescription(carInfo.getId());
-            return "Araç teslim alındı."; // ToDo: Kafka düzeldiğinde güncellenecek.
+            kafkaTemplate.send("notificationTopic","Mail üzerinden araç teslim bilgileri gönderildi.");
+            return "Araç teslim alındı.";
         }
         else{
+            kafkaTemplate.send("notificationTopic","Araç kirada değil.");
             return "Araç kirada değil.";
         }    }
 
