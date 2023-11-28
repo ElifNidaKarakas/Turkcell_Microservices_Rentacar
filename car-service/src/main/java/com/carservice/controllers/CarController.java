@@ -42,27 +42,6 @@ public class CarController {
         return ResponseEntity.status(HttpStatus.OK).body(addCar);
     }
 
-    /*@PostMapping("/AddCarImages")
-    public String AddCarImages(@RequestBody List<CarImages> carImages) {//ResponseEntity<CarImages>
-        carService.addCarImages(carImages);//CarImages addCar = carService.add(car);
-        return ("Araba görsel/görselleri eklendi.");//return ResponseEntity.status(HttpStatus.OK).body(addCar);//Url ler döndürülebilir.
-    }*/
-
-    /*@PostMapping("/AddCarImages")
-    public String AddCarImages(@RequestBody String carId,
-                               @RequestBody List<String> base64Data)  throws IOException {
-
-        List<CarImages> carImagesList = new ArrayList<>();
-        for(String item:base64Data) {
-            CarImages carImages = new CarImages();
-            carImages.setCarId(carId);
-            carImages.setCarImage(imageController.uploadImage(item));
-            carImagesList.add(carImages);
-        }
-        carService.addCarImages(carImagesList);
-        return ("Araba görsel/görselleri eklendi.");
-    }*/
-
     @PostMapping("/AddCarImages")
     public String AddCarImages(@RequestBody List<CarImagesDto> carImagesDtos)  throws IOException {
 
@@ -94,7 +73,7 @@ public class CarController {
         carService.updateCar(id, car);
     }
 
-    @PostMapping
+    /*@PostMapping
     public String submitOrder(@RequestBody CarInfoDto request) {
         // Web istekleri default async
         // sync
@@ -110,5 +89,5 @@ public class CarController {
                 .block();
         // senkron
         // return new ResponseEntity<>(carStatus , carStatus ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
-    }
+    }*/
 }

@@ -21,6 +21,5 @@ public class Car {
     private String date;
     private double dailyPrice;
     private Boolean carStatus;
-    //private String image;
 
 }
