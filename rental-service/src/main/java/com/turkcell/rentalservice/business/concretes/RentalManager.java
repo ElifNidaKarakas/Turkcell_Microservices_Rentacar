@@ -57,8 +57,8 @@ public class RentalManager implements RentalService {
             return "Araç teslim alındı.";
         }
         else{
-            kafkaTemplate.send("notificationTopic","Araç kirada değil.");
-            return "Araç kirada değil.";
+            kafkaTemplate.send("notificationTopic","Araç teslim alınmaya uygun değil.");
+            return "Araç teslim alınmaya uygun değil.";
         }    }
 
     @Override

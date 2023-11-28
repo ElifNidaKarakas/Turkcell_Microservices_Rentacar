@@ -19,7 +19,7 @@ public class CustomerForAddDto {
     private String surname;
 
     @Size(min=3 ,max = 11 ,message = "10 karakterden fazla girilemez")
-    private int phone;
+    private long phone;
 
     @NotBlank(message = "Boş bırakılamaz")
     private String address;

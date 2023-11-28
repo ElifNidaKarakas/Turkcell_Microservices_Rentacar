@@ -13,7 +13,7 @@ public class CustomerResponseDto {
     private int id;
     private String name;
     private String surname;
-    private int phone;
+    private long phone;
     private String address;
     private String email;
     private int remainder;

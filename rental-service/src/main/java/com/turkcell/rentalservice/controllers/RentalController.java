@@ -40,11 +40,11 @@ public class RentalController {
     public String rentACar(@RequestParam String carId,
                            @RequestParam int customerId) {
 
-        CustomerResponseDto customerInfo=webClientBuilder.build()
+        CustomerResponseDto customerInfo = webClientBuilder.build()
                 .get()
                 .uri("http://customer-service/api/v1/customers/getByCustomerId",
                         (uriBuilder) -> uriBuilder
-                                .queryParam("customerId",customerId)
+                                .queryParam("id",customerId)
                                 .build())
                 .retrieve()
                 .bodyToMono(CustomerResponseDto.class)
