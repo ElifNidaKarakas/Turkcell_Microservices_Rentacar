@@ -4,6 +4,8 @@ services:
     ports:
       - 8761:8761
     mem_limit: 700m
+    environment:
+      - eureka.instance.prefer-ip-address= true
     depends_on:
      - keycloak
 
@@ -29,12 +31,23 @@ services:
     ports:
       - 8083:8083
     mem_limit: 700m
+    environment:
+      - eureka.instance.prefer-ip-address=true
+      - eureka.client.serviceUrl.defaultZone=http://discovery-service:8761/eureka
 
   rental-service:
       image: fuathuriyetoglu/rental-service
       ports:
         - 8081:8081
       mem_limit: 700m
+      environment:
+        - eureka.instance.prefer-ip-address=true
+        - eureka.client.serviceUrl.defaultZone=http://discovery-service:8761/eureka
+        - spring.kafka.bootstrap-servers=kafka:9092
+      depends_on:
+        - discovery-service
+        - api-gateway
+        - notificationservice
 
   notificationservice:
     image: halefbudanur/notificationservice
@@ -51,6 +64,12 @@ services:
     ports:
       - 8082:8082
     mem_limit: 700m
+    environment:
+      - eureka.instance.prefer-ip-address=true
+      - eureka.client.serviceUrl.defaultZone=http://discovery-service:8761/eureka
+    depends_on:
+      - discovery-service
+      - api-gateway
 
   zookeeper:
     image: confluentinc/cp-zookeeper
