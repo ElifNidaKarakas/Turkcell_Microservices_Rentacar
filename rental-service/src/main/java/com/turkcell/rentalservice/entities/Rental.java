@@ -10,6 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @Table(name = "rentals")
 public class Rental {
+
     @Id
     @Column(name = "car_id")
     private String carId;
@@ -19,6 +20,4 @@ public class Rental {
 
     @Column(name = "car_status")
     private String carStatus;
-
-
 }

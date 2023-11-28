@@ -19,7 +19,6 @@ public class CarManager implements CarService {
     private final CarRepository carRepository;
     private final CarImagesRepository carImagesRepository;
     private final ModelMapper modelMapper;
-    //  private final MessageSource messageSource;
 
     @Override
     public List<Car> getAll() {
@@ -58,6 +57,4 @@ public class CarManager implements CarService {
         Car carFromAutoMapping = modelMapper.map(car, Car.class);
         carRepository.save(carFromAutoMapping);
     }
-
-
 }

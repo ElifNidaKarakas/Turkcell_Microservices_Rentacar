@@ -2,7 +2,6 @@ package com.carservice.controllers;
 
 import com.carservice.business.abstracts.CarService;
 import com.carservice.dto.requests.CarImagesDto;
-import com.carservice.dto.requests.CarInfoDto;
 import com.carservice.entities.Car;
 import com.carservice.entities.CarImages;
 import lombok.RequiredArgsConstructor;
@@ -43,14 +42,14 @@ public class CarController {
     }
 
     @PostMapping("/AddCarImages")
-    public String AddCarImages(@RequestBody List<CarImagesDto> carImagesDtos)  throws IOException {
+    public String AddCarImages(@RequestBody List<CarImagesDto> carImagesDtos) throws IOException {
 
         List<CarImages> carImagesList = new ArrayList<>();
-        for(CarImagesDto item:carImagesDtos) {
+        for (CarImagesDto item : carImagesDtos) {
             CarImages carImages = new CarImages();
             carImages.setId(item.getId());
             carImages.setCarId(item.getCarId());
-            carImages.setCarImage(imageController.uploadImage(item.getBase64Data().replace(" ","")));
+            carImages.setCarImage(imageController.uploadImage(item.getBase64Data().replace(" ", "")));
             carImagesList.add(carImages);
         }
         carService.addCarImages(carImagesList);
@@ -64,8 +63,8 @@ public class CarController {
 
     @GetMapping("carStatus")
     public Boolean getByCarStatus(@RequestParam String id) {
-       Optional<Car> car = carService.getById(id);
-       return car.get().getCarStatus();
+        Optional<Car> car = carService.getById(id);
+        return car.get().getCarStatus();
     }
 
     @PutMapping("carUpdate")
@@ -73,21 +72,4 @@ public class CarController {
         carService.updateCar(id, car);
     }
 
-    /*@PostMapping
-    public String submitOrder(@RequestBody CarInfoDto request) {
-        // Web istekleri default async
-        // sync
-        return webClientBuilder.build()
-                .get()
-                .uri("http://rental-service/api/v1/rentals/car-status",
-                        (uriBuilder) -> uriBuilder
-                                .queryParam("carId", request.getId())
-                                .queryParam("name", request.getName())
-                                .build())
-                .retrieve()
-                .bodyToMono(String.class)
-                .block();
-        // senkron
-        // return new ResponseEntity<>(carStatus , carStatus ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
-    }*/
 }

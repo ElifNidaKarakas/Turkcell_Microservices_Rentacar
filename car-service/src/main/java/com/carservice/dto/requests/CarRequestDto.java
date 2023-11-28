@@ -16,5 +16,5 @@ public class CarRequestDto {
     private String color;
     private String date;
     private double dailyPrice;
-    //private String image;
+
 }

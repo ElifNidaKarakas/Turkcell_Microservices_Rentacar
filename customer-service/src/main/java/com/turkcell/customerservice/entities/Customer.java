@@ -3,8 +3,6 @@ package com.turkcell.customerservice.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Collection;
-
 @Getter
 @Setter
 @Entity
@@ -16,7 +14,7 @@ public class Customer {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "name")
@@ -28,7 +26,7 @@ public class Customer {
     @Column(name = "phone")
     private long phone;
 
-    @Column(name = "address" )
+    @Column(name = "address")
     private String address;
 
     @Column(name = "email")

@@ -1,8 +1,6 @@
 package com.carservice.controllers;
 
 import com.carservice.core.configuration.CloudinaryUploader;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;

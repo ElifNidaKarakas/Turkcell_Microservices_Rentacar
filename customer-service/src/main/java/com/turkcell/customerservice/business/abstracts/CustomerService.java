@@ -18,5 +18,4 @@ public interface CustomerService {
 
     void updateCustomer(int id, Customer customer);
 
-
 }

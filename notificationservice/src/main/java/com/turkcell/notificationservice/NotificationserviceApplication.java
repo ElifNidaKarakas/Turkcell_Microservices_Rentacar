@@ -7,14 +7,13 @@ import org.springframework.kafka.annotation.KafkaListener;
 @SpringBootApplication
 public class NotificationserviceApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(NotificationserviceApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(NotificationserviceApplication.class, args);
+    }
 
-	@KafkaListener(topics = "notificationTopic", groupId = "notificationId")
-	public void handleNotificationEvent(String message)
-	{
-		System.out.println("Topicte bir mesaj yakalandı: " + message);
-	}
+    @KafkaListener(topics = "notificationTopic", groupId = "notificationId")
+    public void handleNotificationEvent(String message) {
+        System.out.println("Topicte bir mesaj yakalandı: " + message);
+    }
 
 }

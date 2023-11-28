@@ -1,6 +1,5 @@
 package com.turkcell.rentalservice.business.concretes;
 
-import com.google.common.net.HttpHeaders;
 import com.turkcell.rentalservice.business.abstracts.RentalService;
 import com.turkcell.rentalservice.dto.responses.CarResponseDto;
 import com.turkcell.rentalservice.dto.responses.CustomerResponseDto;
@@ -8,11 +7,8 @@ import com.turkcell.rentalservice.entities.Rental;
 import com.turkcell.rentalservice.repositories.RentalRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.http.MediaType;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
@@ -26,7 +22,7 @@ public class RentalManager implements RentalService {
 
     @Override
     public String getCarStatus(String carId) {
-        if(rentalRepository.findByCarId(carId) == null){
+        if (rentalRepository.findByCarId(carId) == null) {
             return null;
         }
         Rental rental = rentalRepository.findByCarId(carId);
@@ -41,7 +37,6 @@ public class RentalManager implements RentalService {
         CarResponseDto carInfo = getCarInfo(carId);
 
         if (carInfo.getCarStatus() && customerInfo.getRemainder() > carInfo.getDailyPrice()) {
-            //carStatusUpdate(carInfo);
             addCarStatusDescription(carInfo.getId(), "Araç kirada.", customerInfo.getId());
 
             customerInfo.setRemainder((int) (customerInfo.getRemainder() - carInfo.getDailyPrice()));
@@ -62,7 +57,6 @@ public class RentalManager implements RentalService {
         Rental rental = rentalRepository.findByCarId(carInfo.getId());
 
         if (!carInfo.getCarStatus() && rental.getCarStatus().equals("Araç kirada.")) {
-            //carStatusUpdate(carInfo);
             deleteCarStatusDescription(carInfo.getId());
             kafkaTemplate.send("notificationTopic", "Mail üzerinden araç teslim bilgileri gönderildi.");
             return "Araç teslim alındı.";
@@ -106,7 +100,6 @@ public class RentalManager implements RentalService {
     }
 
     public CarResponseDto getCarInfo(String carId) {
-
         return webClientBuilder.build()
                 .get()
                 .uri("http://car-service/api/v1/cars/getByCarId",
@@ -119,19 +112,18 @@ public class RentalManager implements RentalService {
     }
 
     public CustomerResponseDto getCustomerInfo(int customerId) {
-
         return webClientBuilder.build()
                 .get()
                 .uri("http://customer-service/api/v1/customers/getByCustomerId",
                         (uriBuilder) -> uriBuilder
-                                .queryParam("id",customerId)
+                                .queryParam("id", customerId)
                                 .build())
                 .retrieve()
                 .bodyToMono(CustomerResponseDto.class)
                 .block();
     }
 
-    public void setCustomerReminder(CustomerResponseDto customerInfo){
+    public void setCustomerReminder(CustomerResponseDto customerInfo) {
         webClientBuilder.build()
                 .put()
                 .uri("http://customer-service/api/v1/customers/customerUpdate",

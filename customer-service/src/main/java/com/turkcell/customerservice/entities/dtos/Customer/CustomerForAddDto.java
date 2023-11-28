@@ -1,7 +1,5 @@
 package com.turkcell.customerservice.entities.dtos.Customer;
 
-
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -18,7 +16,7 @@ public class CustomerForAddDto {
     @NotBlank(message = "Boş bırakılamaz")
     private String surname;
 
-    @Size(min=3 ,max = 11 ,message = "10 karakterden fazla girilemez")
+    @Size(min = 3, max = 11, message = "10 karakterden fazla girilemez")
     private long phone;
 
     @NotBlank(message = "Boş bırakılamaz")

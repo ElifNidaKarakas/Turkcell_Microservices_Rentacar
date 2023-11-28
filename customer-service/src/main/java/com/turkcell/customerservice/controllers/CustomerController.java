@@ -4,7 +4,6 @@ import com.turkcell.customerservice.business.abstracts.CustomerService;
 import com.turkcell.customerservice.entities.Customer;
 import com.turkcell.customerservice.entities.dtos.Customer.CustomerForAddDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 
@@ -31,10 +30,7 @@ public class CustomerController {
     @PostMapping("add")
     public String add(@RequestBody @Valid CustomerForAddDto customer) {
         customerServices.addCustomer(customer);
-
-        return (customer.getName() +" " + " İsimli Müşteri eklendi");
-
-        //return new ResponseEntity(product.getProductName() + " adlı ürün eklendi.", HttpStatus.CREATED);
+        return (customer.getName() + " " + " isimli müşteri eklendi");
     }
 
     @GetMapping("getRemainder")

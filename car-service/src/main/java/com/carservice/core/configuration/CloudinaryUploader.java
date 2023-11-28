@@ -2,7 +2,6 @@ package com.carservice.core.configuration;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 
 import java.io.IOException;

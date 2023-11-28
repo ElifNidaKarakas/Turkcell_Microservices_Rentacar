@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class CarImagesDto {
+
     private int id;
     private String carId;
     private String base64Data;
