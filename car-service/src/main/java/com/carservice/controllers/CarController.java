@@ -5,10 +5,10 @@ import com.carservice.dto.requests.CarImagesDto;
 import com.carservice.entities.Car;
 import com.carservice.entities.CarImages;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.reactive.function.client.WebClient;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,8 +20,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CarController {
     private final CarService carService;
-    private final WebClient.Builder webClientBuilder;
     private final ImageController imageController;
+    private final MessageSource messageSource;
 
     @GetMapping
     public List<Car> getAllCars() {

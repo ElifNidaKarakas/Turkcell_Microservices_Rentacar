@@ -1,7 +1,6 @@
 package com.turkcell.customerservice.entities.dtos.Customer;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,21 +10,25 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CustomerForAddDto {
     @Size(min = 3)
+    @NotBlank(message = "{NameNotNull}")
     private String name;
 
-    @NotBlank(message = "Boş bırakılamaz")
+    @NotBlank(message = "{NameNotNull}")
     private String surname;
 
-    @Size(min = 3, max = 11, message = "10 karakterden fazla girilemez")
+    @Min(value = 1,message = "{phoneLength}")
     private long phone;
 
-    @NotBlank(message = "Boş bırakılamaz")
+    @NotBlank(message = "{NotNull}")
     private String address;
 
-    @NotBlank(message = "Boş bırakılamaz")
+    @NotBlank(message = "{NotNull}")
+    @Email(
+            message = "{invalidEmail}",
+            regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
     private String email;
 
-    @NotBlank(message = "Boş bırakılamaz")
+    @NotNull(message = "{NotNull}")
     private int remainder;
 
 }
