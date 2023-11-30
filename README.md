@@ -1,77 +1,41 @@
-## <p align="center"> Pair 4:Elif Nida Karakaş,Halef Budanur,Ahmet Çetiner,Baran Büyük,Hande Arslan,Yavuz Selim Özbey, Fuat Hüriyetoğlu
- </p>
+## <p align="center"> Turkcell Pair4 </p>
+## <p align="center"> Elif Nida Karakaş,Halef Budanur,Ahmet Çetiner,Baran Büyük,Hande Arslan,Yavuz Selim Özbey, Fuat Hüriyetoğlu </p>
 
-<b>Proje Çalışması 1</b>
+ ## 📹 Video
+https://vimeo.com/manage/videos/887791116/703dd6494c
 
-#Projenize aşağıdaki servisleri base yapıda ekleyiniz; +
+ ## 📹 Frontend
+https://github.com/ahmetcetiner/turkcell-front
 
-Keycloak
+##  Structure Used
+- Microservices
+- Kafka
+- Keycloak
+- JWT Authentication
+- Gateway
+- Apache ZooKeeper
+- WebClient
+- Docker
+- DockerHub
 
-Gateway
+## 📸 Screenshots
 
-Eureka (Service Discovery)
+| Eureka Server | Docker |Frontend |
+| ------ | ---- | ------ |
+|<img src="https://github.com/handearslan/Turkcell_Microservices_Rentacar/assets/112904859/1d6f3853-0716-430f-b8cf-6b92607d261f" width="500" height="250"/>|<img src="https://github.com/handearslan/Turkcell_Microservices_Rentacar/assets/112904859/3d4cf9ec-8035-43dd-9677-4ef7ff925437" width="500" height="250"/>|<img src="https://github.com/handearslan/Turkcell_Microservices_Rentacar/assets/112904859/d35b6e89-54bc-4fcb-8b3d-e13f7ba9b8ba" width="500" height="250"/>|
 
-Rental Service & PostgreSql
+| Frontend | Frontend |Notification Service |
+| ------ | ---- | ------ |
+|<img src="https://github.com/handearslan/Turkcell_Microservices_Rentacar/assets/112904859/ad505421-4004-4b6f-9a1e-7b47c9e1314a" width="500" height="250"/>|<img src="https://github.com/handearslan/Turkcell_Microservices_Rentacar/assets/112904859/1ad9e6e1-cc5e-4c55-8bc2-6f79894af2c8" width="500" height="250"/>|<img src="https://github.com/handearslan/Turkcell_Microservices_Rentacar/assets/112904859/b6dd9fa8-9209-49e5-8af1-f610402a2866" width="500" height="250"/>|
 
-Car Service MongoDb
+| Car Service | Rental Service | Customer Service |
+| ------ | ---- | ------ |
+|<img src="https://github.com/handearslan/Turkcell_Microservices_Rentacar/assets/112904859/8b5fe5aa-69bc-4f43-8c95-f52eb8939aca" width="500" height="250"/>|<img src="https://github.com/handearslan/Turkcell_Microservices_Rentacar/assets/112904859/cf1063f6-fee5-4576-b53c-30a87ab25b6d" width="500" height="250"/>|<img src="https://github.com/handearslan/Turkcell_Microservices_Rentacar/assets/112904859/3d4cf9ec-8035-43dd-9677-4ef7ff925437" width="500" height="250"/>|
 
-docker-compose.yml
+| PgAdmin | PgAdmin | Mongo |
+| ------ | ---- | ------ |
+|<img src="https://github.com/handearslan/Turkcell_Microservices_Rentacar/assets/112904859/fcb97892-94ca-4b2a-b828-543a7df6df99" width="500" height="250"/>|<img src="https://github.com/handearslan/Turkcell_Microservices_Rentacar/assets/112904859/0f0bfbac-1328-4c55-a9aa-cc3c85ee7bd8" width="500" height="250"/>|<img src="https://github.com/handearslan/Turkcell_Microservices_Rentacar/assets/112904859/4070522e-1019-4671-b04c-01f7685e2806" width="500" height="250"/>|
 
-#İlk faz için aşağıdaki özelliklerin uygulamanıza entegrasyonu beklenmektedir:
-
-Arabaların marka,model,renk,model yılı, günlük ücret ve resim bilgisi tutulmalıdır. +
-
-Arabalar listelenebilmelidir. +
-
-Arabanın durumu o an rental servisle haberleşerek "kiralamaya uygun" veya "değil" şeklinde listeleme endpointinde gösterilmelidir. +
-
-Sisteme giriş yapan kullanıcılar tarafından araba eklenebilmelidir (şu anlık rol kontrolü gerekmiyor) +
-
-#Araba servisinde aşağıdaki 5 endpoint bulunmalıdır; +
-
-GetAll
-
-GetById
-
-Add
-
-Update
-
-Delete
-
-<b>Proje Çalışması 2</b>
-
-Uygulamanıza araba resimleri yüklenebilmelidir.
-Bu yapı için bir CDN servis kullanılmalıdır.Önerim "Cloudinary" sisteminin bedava olan yapısıdır ama dilerseniz diğer CDN sistemlerini de
-kullanabilirsiniz. Spring'de çok basit bir implementasyonu var.
-Yüklenen resimlerin url'leri yeni bir CarImages tablosunda tutulmalıdır.
-(Her arabanın birden fazla resmi olabilir) +
-
-CustomerService'i oluşturalım. +
-
-Bu servis arkasında PostgreSql kullanan (ayrı bir db) ve müşteri bilgilerimizi tutacak servis olacak.+
-
-#Temel olarak şuanlık aşağıdaki görevleri yerine getirmesini bekliyoruz; +
-
-Kayıt olma +
-
-Müşteri servisi ile rental servisi arasına sync communacation için altyapıyı şimdiden hazırlayalım. +
-
-RentalService ile NotificationService arasındaki async communication için gerekli kafka konfigürasyonları yapalım. +
-
-RentalService içerisinde bir adet kiralama fonksiyonu oluşturalım +
-
-ve bu fonksiyon NotificationService'i async bir şekilde uyarsın.  +
-
-NotificationService içerisinde uyarılan fonksiyonda mail ile bildirim gönderme simülasyonu yapalım. (Gerçekten mail gönderilmesine gerek yok simülasyon) +
-
-<b>Proje Çalışması 3</b>
-
-Rental service'iniz aşağıdaki özellikleri sağlayarak kiralama verisini veritabanına ekleme işlevini sağlamalıdır;
-
-Kiralama yapılırken sync bir şekilde car serviceden arabanın durumu kontrol edilmeli +
-
-Yine sync bir şekilde kiralama için fiyatın CustomerService'den customer tablosunda yeterli bakiye olup olmadığı kontrol edilsin +
-(tabloda basitce bir alan tutabilirsin customer servicede)
-
-Şu anlık CustomerId'yi kiralama yaparken giden bilgide manual gönderebilirsiniz. +
+| Mongo | Postman | Postman |
+| ------ | ---- | ------ |
+|<img src="https://github.com/handearslan/Turkcell_Microservices_Rentacar/assets/112904859/cd02f64e-5aa1-4e96-b6c1-1b0cd322b9dd" width="500" height="250"/>|<img src="https://github.com/handearslan/Turkcell_Microservices_Rentacar/assets/112904859/d4ba0c68-8b3a-4875-ba59-60cecbb43651" width="500" height="250"/>|<img src="https://github.com/handearslan/Turkcell_Microservices_Rentacar/assets/112904859/0f78a759-d938-46e1-8192-9dfabe39c78b" width="500" height="250"/>|
