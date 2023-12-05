@@ -16,6 +16,8 @@ public interface CarService {
 
     CarImages addCarImages(List<CarImages> carImages);
 
+    List<CarImages> getAllCarImages();
+
     Optional<Car> getById(String Id);
 
     void updateCar(String id, Car car);

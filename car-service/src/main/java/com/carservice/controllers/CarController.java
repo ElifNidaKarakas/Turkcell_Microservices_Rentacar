@@ -18,6 +18,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("api/v1/cars")
 @RequiredArgsConstructor
+@CrossOrigin("http://127.0.0.1:5173")
 public class CarController {
     private final CarService carService;
     private final ImageController imageController;
@@ -27,6 +28,11 @@ public class CarController {
     public List<Car> getAllCars() {
         List<Car> carInDb = carService.getAll();
         return carInDb;
+    }
+
+    @GetMapping("allCarImages")
+    public List<CarImages>  getAllCarImages() {
+        return carService.getAllCarImages();
     }
 
     @DeleteMapping("/{id}")

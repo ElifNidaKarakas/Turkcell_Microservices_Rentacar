@@ -26,6 +26,11 @@ public class CarManager implements CarService {
     }
 
     @Override
+    public List<CarImages> getAllCarImages() {
+       return carImagesRepository.findAll();
+    }
+
+    @Override
     public void deleteCar(String id) {
         carRepository.deleteById(id);
     }
