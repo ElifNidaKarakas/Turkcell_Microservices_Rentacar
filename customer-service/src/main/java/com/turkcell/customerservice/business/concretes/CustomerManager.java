@@ -1,11 +1,14 @@
 package com.turkcell.customerservice.business.concretes;
 
 import com.turkcell.customerservice.business.abstracts.CustomerService;
+import com.turkcell.customerservice.core.exceptions.BusinessException;
 import com.turkcell.customerservice.entities.Customer;
 import com.turkcell.customerservice.entities.dtos.Customer.CustomerForAddDto;
 import com.turkcell.customerservice.repositories.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +20,7 @@ public class CustomerManager implements CustomerService {
 
     private final CustomerRepository customerRepository;
     private final ModelMapper modelMapper;
+    private final MessageSource messageSource;
 
     @Override
     public List<Customer> getAll() {
@@ -36,6 +40,7 @@ public class CustomerManager implements CustomerService {
 
     @Override
     public void deleteCustomer(int id) {
+        returnCustomerByIdIfExists(id);
         customerRepository.deleteById(id);
     }
 
@@ -43,5 +48,13 @@ public class CustomerManager implements CustomerService {
     public void updateCustomer(int id, Customer customer) {
         Customer customerFromAutoMapping = modelMapper.map(customer, Customer.class);
         customerRepository.save(customerFromAutoMapping);
+    }
+
+    private void returnCustomerByIdIfExists(int id){
+        Customer customerToDelete = customerRepository.findById(id).orElse(null);
+        if(customerToDelete == null) {
+            throw new BusinessException(
+                    messageSource.getMessage("customerDoesNotExistWithGivenId", new Object[]{id}, LocaleContextHolder.getLocale()));
+        }
     }
 }

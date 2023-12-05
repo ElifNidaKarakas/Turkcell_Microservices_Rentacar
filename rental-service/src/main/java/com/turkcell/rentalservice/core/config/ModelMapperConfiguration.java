@@ -1,4 +1,4 @@
-package com.turkcell.rentalservice.config;
+package com.turkcell.rentalservice.core.config;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;

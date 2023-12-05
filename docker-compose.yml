@@ -1,6 +1,7 @@
 services:
   discovery-service:
-    image: halefbudanur/discovery-server
+    image: discovery-test
+    build: ./discovery-server
     ports:
       - 8761:8761
     mem_limit: 700m
@@ -19,12 +20,21 @@ services:
       KEYCLOAK_ADMIN_PASSWORD: admin
     command:
       - start-dev
+    volumes:
+      - C:\Users\Halef\Desktop\Turkcell_JAVA\volumes\keycloak:/opt/keycloak/data
 
   api-gateway:
-    image: halefbudanur/api-gateway
+    image: test-key
+    build: ./api-gateway
     ports:
       - 8181:8181
     mem_limit: 700m
+    environment:
+      - eureka.instance.prefer-ip-address=true
+      - eureka.client.serviceUrl.defaultZone=http://discovery-service:8761/eureka
+      - spring.security.oauth2.resourceserver.jwt.issuer-uri=http://localhost:8080/realms/rent-a-car-microservices
+    depends_on:
+      - discovery-service
 
   customer-service:
     image: halefbudanur/customer-service
